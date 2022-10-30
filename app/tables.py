@@ -23,7 +23,7 @@ class BroadcastNetworksTable(tables.Table):
     class Meta: 
         model = models.Broadcast_Networks
         template_name = "django_tables2/bootstrap.html"
-        fields = ("broadcast_company", "game_id_id")
+        fields = ("id", "broadcast_company", "game_id_id")
 
 class GamesTable(tables.Table):
     class Meta:

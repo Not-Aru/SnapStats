@@ -26,11 +26,12 @@ source envs/bin/activate
 git clone "https://github.com/Not-Aru/SnapStats"
 ```
 5. Edit `settings.py` with your MySQL (or preferred DB) database information 
-6. Save all files and run
+6. The data is available in `data/data.sql`. Run `source <path-to-data-file>` within MySql to populate the MySql tables. 
+7. Save all files and run
 ```bash
 python manage.py makemigrations app
 python manage.py migrate
 ```
-7. The previous step will propogate tables into your DB and apply settings. Ensure that this has been done (in MySQL, run `show tables;` or some other command to verify that the Django models were translated to DB tables). Now, run `python manage.py collectstatic`. This will let Django find the bootstrapped frontend files. 
-8. Run the server: `python manage.py runserver`. 
-9. The project will be up and running. Visit the link in the terminal output in your browser. 
+8. The previous step will propogate tables into your DB and apply settings. Ensure that this has been done (in MySQL, run `show tables;` or some other command to verify that the Django models were translated to DB tables). Now, run `python manage.py collectstatic`. This will let Django find the bootstrapped frontend files. 
+9. Run the server: `python manage.py runserver`. 
+10. The project will be up and running. Visit the link in the terminal output in your browser. 

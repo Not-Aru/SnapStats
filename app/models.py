@@ -33,5 +33,6 @@ class Games(models.Model):
     away_team_points = models.IntegerField(null=True)
 
 class Broadcast_Networks(models.Model):
-    broadcast_company = models.CharField(max_length=64, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    broadcast_company = models.CharField(max_length=64)
     game_id = models.ForeignKey(Games, null=True, on_delete=models.CASCADE)
