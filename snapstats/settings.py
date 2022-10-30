@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_tables2',
     'app',
 ]
 
@@ -55,7 +56,9 @@ ROOT_URLCONF = 'snapstats.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,12 +79,12 @@ WSGI_APPLICATION = 'snapstats.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'w6R4E0F1iTALIh07CjtX',
-        'HOST': 'containers-us-west-63.railway.app',
-        'PORT': '6430',
+        'ENGINE'  : 'django.db.backends.mysql',
+        'NAME'    : 'snapstats',                
+        'USER'    : 'test',                     
+        'PASSWORD': 'Secret_1234',              
+        'HOST'    : 'localhost',                
+        'PORT'    : '3306',
     }
 }
 
@@ -119,8 +122,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root') 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static', 'static_dirs'),
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

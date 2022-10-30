@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+
+import app.views as views
+import snapstats.settings as settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('teams/', views.TeamsListView.as_view()),
+    path('stadiums/', views.StadiumsListView.as_view()),
+    path('players/', views.PlayersListView.as_view()),
+    path('games/', views.GamesListView.as_view()),
+    path('broadcast-networks/', views.BroadcastNetworksListView.as_view()),
+    path('', views.index, name="index"),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
