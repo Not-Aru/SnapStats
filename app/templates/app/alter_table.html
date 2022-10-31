@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Alter Tables</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/3166/3166130.png" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">SnapStats</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/#tables">Return to Tables</a></li>
+    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Alter Tables Here</h2>
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-plus"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+    
+        <!-- About Section-->
+        
+        <!-- Contact Section-->
+        <section class="page-section" id="alter_table_section">
+            <div class="container">
+                <!-- Contact Section Heading-->
+
+                <!-- Contact Section Form-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+
+                        <p><center>Select the operation, table, and enter the appropriate fields.</center></p>
+                        <br>
+                        <select class="form-select" id="alter_table" name="alter_dropdown">
+                            <option value="">I want to...</option>
+                            <option value="insert_into">INSERT INTO</option>
+                            <option value="update_table">UPDATE</option>
+                            <option value="delete_from">DELETE FROM</option>
+                        </select>
+
+                        <br>
+                        <br>
+
+                        <select class="form-select" id="table_select" name="table_select">
+                            <option value="">Select a table...</option>
+                            <option value="stadiums">Stadiums</option>
+                            <option value="teams">Teams</option>
+                            <option value="players">Players</option>
+                            <option value="games">Games</option>
+                            <option value="broadcast_networks">Broadcast Networks</option>
+                        </select>
+
+                        <br>
+                        <br>
+                        
+                        <form id="teams_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="team_id">Team ID</label>
+                                <input type="number" name="team_id" class="form-control" id="team_id" placeholder="Enter Team ID">
+                                <br>
+
+                                <label for="stadium_id">Stadium ID</label>
+                                <input type="number" name="stadium_id" class="form-control" id="stadium_id" placeholder="Enter Stadium ID">
+                                <br>
+
+                                <label for="team_name">Team Name</label>
+                                <input type="text" name="team_name" class="form-control" id="team_name" placeholder="Enter Team Name">
+                                <br>
+
+                                <label for="division">Division</label>
+                                <input type="text" name="division" class="form-control" id="division" placeholder="Enter Division">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="players_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="player_id">Player ID</label>
+                                <input type="number" name="player_id" class="form-control" id="player_id" placeholder="Enter Player ID">
+                                <br>
+
+                                <label for="player_name">Player Name</label>
+                                <input type="text" name="player_name" class="form-control" id="player_name" placeholder="Enter Player Name">
+                                <br>
+
+                                <label for="position">Position</label>
+                                <input type="text" name="position" class="form-control" id="position" placeholder="Enter Player Position">
+                                <br>
+
+                                <label for="player_team_id">Team ID</label>
+                                <input type="number" name="player_team_id" class="form-control" id="player_team_id" placeholder="Enter Team ID">
+                                <br>
+
+                                <label for="player_age">Player Age</label>
+                                <input type="number" name="player_age" class="form-control" id="player_age" placeholder="Enter Player Age">
+                                <br>
+                                
+                                <label for="player_years_on_team">Years On Team</label>
+                                <input type="number" name="player_years_on_team" class="form-control" id="player_years_on_team" placeholder="Enter Years on Team">
+                                <br>
+
+                                <label for="player_games_started">Games Started</label>
+                                <input type="number" name="player_games_started" class="form-control" id="player_games_started" placeholder="Enter Number of Games Started">
+                                <br>
+
+                                <label for="player_college">Player College</label>
+                                <input type="text" name="player_college" class="form-control" id="player_college" placeholder="Enter Player College">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+                    
+                        <form id="stadiums_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="stadium_id">Stadium ID</label>
+                                <input type="number" name="stadium_id" class="form-control" id="stadium_id" placeholder="Enter Stadium ID" required>
+                                <br>
+  
+                                <label for="stadium_name">Stadium Name</label>
+                                <input type="text" name="stadium_name" class="form-control" id="stadium_name" placeholder="Enter Stadium Name" required>
+                                <br>
+  
+                                <label for="stadium_capacity">Stadium Capacity</label>
+                                <input type="number" name="stadium_capacity" class="form-control" id="stadium_capacity" placeholder="Enter Stadium Capacity (no commas)" required>
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="broadcast_networks_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="bn_company">Broadcast Company</label>
+                                <input type="text" name="bn_company" class="form-control" id="bn_company" placeholder="Enter Broadcast Company Name">
+                                <br>
+                                
+                                <label for="bn_game_id">Game ID</label>
+                                <input type="number" name="bn_game_id" class="form-control" id="bn_game_id" placeholder="Enter Game ID">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+                    
+
+                        <form id="games_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="games_game_id">Game ID</label>
+                                <input type="number" name="games_game_id" class="form-control" id="games_game_id" placeholder="Enter Game ID">
+                                <br>
+
+                                <label for="games_home_team_id">Home Team ID</label>
+                                <input type="number" name="games_home_team_id" class="form-control" id="games_home_team_id" placeholder="Enter Home Team ID">
+                                <br>
+                                
+                                <label for="games_away_team_id">Away Team ID</label>
+                                <input type="number" name="games_away_team_id" class="form-control" id="games_away_team_id" placeholder="Enter Away Team ID">
+                                <br>
+
+                                <label for="games_home_team_points">Home Team Points</label>
+                                <input type="number" name="games_home_team_points" class="form-control" id="games_home_team_points" placeholder="Enter Home Team Points">
+                                <br>
+
+                                <label for="games_away_team_points">Away Team Points</label>
+                                <input type="number" name="games_away_team_points" class="form-control" id="games_away_team_points" placeholder="Enter Away Team Points">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+                        </form>
+
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright &copy; CS348 SnapStats</small></div>
+        </div>
+        <!-- Portfolio Modals-->
+       
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+
+        <script>
+            $(document).ready(function(){
+                $("form").hide();
+                $("#table_select").hide();
+            })
+
+            $("#table_select").change(function(){
+                stateChange($(this).val());
+            });
+
+            $("#alter_table").change(function(){
+                stateChange1($(this).val());
+            })
+
+            function stateChange1(stateValue){
+                switch(stateValue){
+                    case 'insert_into':
+                        $("#table_select").show();
+                    
+                    case 'update_table':
+                        $("#table_select").show();
+                    
+                    case 'delete_from':
+                        $("#table_select").show();
+                }
+            }
+
+            function stateChange(stateValue){
+                $("form").hide();
+            
+                switch(stateValue){
+                    case 'teams':
+                        $("#teams_form").show();
+                        break;
+                    
+                    case 'players':
+                        $("#players_form").show();
+                        break;
+                    
+                    case 'stadiums':
+                        $("#stadiums_form").show();
+                        break;
+                    
+                    case 'broadcast_networks':
+                        $("#broadcast_networks_form").show();
+                        break;
+                    
+                    case 'games':
+                        $("#games_form").show();
+                        break;
+                    
+                }
+            }
+        </script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

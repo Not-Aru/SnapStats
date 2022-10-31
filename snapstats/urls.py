@@ -27,5 +27,7 @@ urlpatterns = [
     path('players/', views.PlayersListView.as_view()),
     path('games/', views.GamesListView.as_view()),
     path('broadcast-networks/', views.BroadcastNetworksListView.as_view()),
+    path('alter_table/', views.AlterTable, name="alter"),
+    path('thanks/', views.thanks, name="thanks"),
     path('', views.index, name="index"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
