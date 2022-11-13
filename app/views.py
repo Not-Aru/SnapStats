@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView
 from django_tables2 import SingleTableView
 from django.http import HttpResponseRedirect
+from django.db import connection
 
 from app.models import *
 from app.tables import *
@@ -84,7 +85,75 @@ def AlterTable(request):
             games.save()
 
             return render(request, 'app/thanks.html')
+
+        # -----------------------------------------------------------------------------------------------------------------------------------------------
+
+        if request.POST.get('stadium_update_set') and request.POST.get('stadium_update_where'):
+            sql_query = "UPDATE app_stadium SET " + request.POST.get('stadium_update_set') + " WHERE " + request.POST.get('stadium_update_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('team_update_set') and request.POST.get('team_update_where'):
+            sql_query = "UPDATE app_teams SET " + request.POST.get('team_update_set') + " WHERE " + request.POST.get('team_update_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('players_update_set') and request.POST.get('players_update_where'):
+            sql_query = "UPDATE app_players SET " + request.POST.get('players_update_set') + " WHERE " + request.POST.get('players_update_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('games_update_set') and request.POST.get('games_update_where'):
+            sql_query = "UPDATE app_games SET " + request.POST.get('games_update_set') + " WHERE " + request.POST.get('games_update_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('broadcast_networks_update_set') and request.POST.get('broadcast_networks_update_where'):
+            sql_query = "UPDATE app_broadcast_networks SET " + request.POST.get('broadcast_networks_update_set') + " WHERE " + request.POST.get('broadcast_networks_update_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+
+        # -----------------------------------------------------------------------------------------------------------------------------------------------
+
+        if request.POST.get('stadium_delete_where'):
+            sql_query = "DELETE FROM app_stadium WHERE " + request.POST.get('stadium_delete_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('team_delete_where'):
+            sql_query = "DELETE FROM app_teams WHERE " + request.POST.get('team_delete_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('players_delete_where'):
+            sql_query = "DELETE FROM app_players WHERE " + request.POST.get('players_delete_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('games_delete_where'):
+            sql_query = "DELETE FROM app_games WHERE " + request.POST.get('games_delete_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+        if request.POST.get('broadcast_networks_delete_where'):
+            sql_query = "DELETE FROM app_broadcast_networks WHERE " + request.POST.get('broadcast_networks_delete_where')
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+
+            return render(request, 'app/thanks.html')
+
     else:
+        print(request)
         return render(request, 'app/alter_table.html')
 
 def index(request):

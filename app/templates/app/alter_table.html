@@ -59,6 +59,9 @@
                     <div class="col-lg-8 col-xl-7">
 
                         <p><center>Select the operation, table, and enter the appropriate fields.</center></p>
+                        <p><center>Table attributes are exactly shown in each <a href="http://127.0.0.1:8000/#tables">tables'</a> columns.</center></p>
+                        <p><center>Ensure that for updates or deletes, inputted text and table attributes are syntactically correct - otherwise operations <u>may not run</u>.</center></p>
+
                         <br>
                         <select class="form-select" id="alter_table" name="alter_dropdown">
                             <option value="">I want to...</option>
@@ -79,6 +82,24 @@
                             <option value="broadcast_networks">Broadcast Networks</option>
                         </select>
 
+                        <select class="form-select" id="table_select_update" name="table_select_update">
+                            <option value="">Select a table...</option>
+                            <option value="stadiums">Stadiums</option>
+                            <option value="teams">Teams</option>
+                            <option value="players">Players</option>
+                            <option value="games">Games</option>
+                            <option value="broadcast_networks">Broadcast Networks</option>
+                        </select>
+
+                        <select class="form-select" id="table_select_delete" name="table_select_update">
+                            <option value="">Select a table...</option>
+                            <option value="stadiums">Stadiums</option>
+                            <option value="teams">Teams</option>
+                            <option value="players">Players</option>
+                            <option value="games">Games</option>
+                            <option value="broadcast_networks">Broadcast Networks</option>
+                        </select>
+
                         <br>
                         <br>
                         
@@ -86,19 +107,19 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="team_id">Team ID</label>
-                                <input type="number" name="team_id" class="form-control" id="team_id" placeholder="Enter Team ID">
+                                <input type="number" name="team_id" class="form-control" id="team_id" placeholder="Enter Team ID" required>
                                 <br>
 
                                 <label for="stadium_id">Stadium ID</label>
-                                <input type="number" name="stadium_id" class="form-control" id="stadium_id" placeholder="Enter Stadium ID">
+                                <input type="number" name="stadium_id" class="form-control" id="stadium_id" placeholder="Enter Stadium ID" required>
                                 <br>
 
                                 <label for="team_name">Team Name</label>
-                                <input type="text" name="team_name" class="form-control" id="team_name" placeholder="Enter Team Name">
+                                <input type="text" name="team_name" class="form-control" id="team_name" placeholder="Enter Team Name" required>
                                 <br>
 
                                 <label for="division">Division</label>
-                                <input type="text" name="division" class="form-control" id="division" placeholder="Enter Division">
+                                <input type="text" name="division" class="form-control" id="division" placeholder="Enter Division" required>
                                 <br>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Submit!" />
@@ -109,35 +130,35 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="player_id">Player ID</label>
-                                <input type="number" name="player_id" class="form-control" id="player_id" placeholder="Enter Player ID">
+                                <input type="number" name="player_id" class="form-control" id="player_id" placeholder="Enter Player ID" required>
                                 <br>
 
                                 <label for="player_name">Player Name</label>
-                                <input type="text" name="player_name" class="form-control" id="player_name" placeholder="Enter Player Name">
+                                <input type="text" name="player_name" class="form-control" id="player_name" placeholder="Enter Player Name" required>
                                 <br>
 
                                 <label for="position">Position</label>
-                                <input type="text" name="position" class="form-control" id="position" placeholder="Enter Player Position">
+                                <input type="text" name="position" class="form-control" id="position" placeholder="Enter Player Position" required>
                                 <br>
 
                                 <label for="player_team_id">Team ID</label>
-                                <input type="number" name="player_team_id" class="form-control" id="player_team_id" placeholder="Enter Team ID">
+                                <input type="number" name="player_team_id" class="form-control" id="player_team_id" placeholder="Enter Team ID" required>
                                 <br>
 
                                 <label for="player_age">Player Age</label>
-                                <input type="number" name="player_age" class="form-control" id="player_age" placeholder="Enter Player Age">
+                                <input type="number" name="player_age" class="form-control" id="player_age" placeholder="Enter Player Age" required>
                                 <br>
                                 
                                 <label for="player_years_on_team">Years On Team</label>
-                                <input type="number" name="player_years_on_team" class="form-control" id="player_years_on_team" placeholder="Enter Years on Team">
+                                <input type="number" name="player_years_on_team" class="form-control" id="player_years_on_team" placeholder="Enter Years on Team" required>
                                 <br>
 
                                 <label for="player_games_started">Games Started</label>
-                                <input type="number" name="player_games_started" class="form-control" id="player_games_started" placeholder="Enter Number of Games Started">
+                                <input type="number" name="player_games_started" class="form-control" id="player_games_started" placeholder="Enter Number of Games Started" required>
                                 <br>
 
                                 <label for="player_college">Player College</label>
-                                <input type="text" name="player_college" class="form-control" id="player_college" placeholder="Enter Player College">
+                                <input type="text" name="player_college" class="form-control" id="player_college" placeholder="Enter Player College" required>
                                 <br>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Submit!" />
@@ -167,11 +188,11 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="bn_company">Broadcast Company</label>
-                                <input type="text" name="bn_company" class="form-control" id="bn_company" placeholder="Enter Broadcast Company Name">
+                                <input type="text" name="bn_company" class="form-control" id="bn_company" placeholder="Enter Broadcast Company Name" required>
                                 <br>
                                 
                                 <label for="bn_game_id">Game ID</label>
-                                <input type="number" name="bn_game_id" class="form-control" id="bn_game_id" placeholder="Enter Game ID">
+                                <input type="number" name="bn_game_id" class="form-control" id="bn_game_id" placeholder="Enter Game ID" required>
                                 <br>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Submit!" />
@@ -183,23 +204,157 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="games_game_id">Game ID</label>
-                                <input type="number" name="games_game_id" class="form-control" id="games_game_id" placeholder="Enter Game ID">
+                                <input type="number" name="games_game_id" class="form-control" id="games_game_id" placeholder="Enter Game ID" required>
                                 <br>
 
                                 <label for="games_home_team_id">Home Team ID</label>
-                                <input type="number" name="games_home_team_id" class="form-control" id="games_home_team_id" placeholder="Enter Home Team ID">
+                                <input type="number" name="games_home_team_id" class="form-control" id="games_home_team_id" placeholder="Enter Home Team ID" required>
                                 <br>
                                 
                                 <label for="games_away_team_id">Away Team ID</label>
-                                <input type="number" name="games_away_team_id" class="form-control" id="games_away_team_id" placeholder="Enter Away Team ID">
+                                <input type="number" name="games_away_team_id" class="form-control" id="games_away_team_id" placeholder="Enter Away Team ID" required>
                                 <br>
 
                                 <label for="games_home_team_points">Home Team Points</label>
-                                <input type="number" name="games_home_team_points" class="form-control" id="games_home_team_points" placeholder="Enter Home Team Points">
+                                <input type="number" name="games_home_team_points" class="form-control" id="games_home_team_points" placeholder="Enter Home Team Points" required>
                                 <br>
 
                                 <label for="games_away_team_points">Away Team Points</label>
-                                <input type="number" name="games_away_team_points" class="form-control" id="games_away_team_points" placeholder="Enter Away Team Points">
+                                <input type="number" name="games_away_team_points" class="form-control" id="games_away_team_points" placeholder="Enter Away Team Points" required>
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+                        </form>
+                        
+                        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+                        <form id="teams_update_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="team_update_set">SET</label>
+                                <input type="form-control" name="team_update_set" class="form-control" id="team_update_set" placeholder="enter SQL syntax for the SET clause" required>
+                                <br>
+
+                                <label for="team_update_where">WHERE</label>
+                                <input type="form-control" name="team_update_where" class="form-control" id="team_update_where" placeholder="enter SQL syntax for the WHERE clause" required>
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="players_update_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="players_update_set">SET</label>
+                                <input type="form-control" name="players_update_set" class="form-control" id="players_update_set" placeholder="enter SQL syntax for the SET clause">
+                                <br>
+
+                                <label for="players_update_where">WHERE</label>
+                                <input type="form-control" name="players_update_where" class="form-control" id="players_update_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="stadiums_update_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="stadium_update_set">SET</label>
+                                <input type="number" name="stadium_update_set" class="form-control" id="stadium_update_set" placeholder="enter SQL syntax for the SET clause" required>
+                                <br>
+  
+                                <label for="stadium_update_where">WHERE</label>
+                                <input type="text" name="stadium_update_where" class="form-control" id="stadium_update_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+  
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="broadcast_networks_update_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="broadcast_networks_update_set">SET</label>
+                                <input type="form-control" name="broadcast_networks_update_set" class="form-control" id="broadcast_networks_update_set" placeholder="enter SQL syntax for the SET clause">
+                                <br>
+
+                                <label for="broadcast_networks_update_where">WHERE</label>
+                                <input type="form-control" name="broadcast_networks_update_where" class="form-control" id="broadcast_networks_update_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="games_update_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="games_update_set">SET</label>
+                                <input type="form-control" name="games_update_set" class="form-control" id="games_update_set" placeholder="enter SQL syntax for the SET clause">
+                                <br>
+
+                                <label for="games_update_where">WHERE</label>
+                                <input type="form-control" name="games_update_where" class="form-control" id="games_update_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+                        </form>
+
+                        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+                        <form id="teams_delete_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="team_delete_where">WHERE</label>
+                                <input type="form-control" name="team_delete_where" class="form-control" id="team_delete_where" placeholder="enter SQL syntax for the WHERE clause" required>
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="players_delete_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="players_delete_where">WHERE</label>
+                                <input type="form-control" name="players_delete_where" class="form-control" id="players_delete_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="stadiums_delete_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="stadium_delete_where">WHERE</label>
+                                <input type="text" name="stadium_delete_where" class="form-control" id="stadium_delete_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+  
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="broadcast_networks_delete_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="broadcast_networks_delete_where">WHERE</label>
+                                <input type="form-control" name="broadcast_networks_delete_where" class="form-control" id="broadcast_networks_delete_where" placeholder="enter SQL syntax for the WHERE clause">
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+
+                        </form>
+
+                        <form id="games_delete_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="games_delete_where">WHERE</label>
+                                <input type="form-control" name="games_delete_where" class="form-control" id="games_delete_where" placeholder="enter SQL syntax for the WHERE clause">
                                 <br>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Submit!" />
@@ -213,7 +368,7 @@
         
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; CS348 SnapStats</small></div>
+            <div class="container"><small>Copyright &copy; CS 348 SnapStats</small></div>
         </div>
         <!-- Portfolio Modals-->
        
@@ -226,26 +381,99 @@
             $(document).ready(function(){
                 $("form").hide();
                 $("#table_select").hide();
+                $("#table_select_update").hide();
+                $("#table_select_delete").hide();
             })
 
             $("#table_select").change(function(){
                 stateChange($(this).val());
             });
 
+            $("#table_select_update").change(function(){
+                stateChange2($(this).val());
+            });
+
+            $("#table_select_delete").change(function(){
+                stateChange3($(this).val());
+            });
+
             $("#alter_table").change(function(){
+                $("#table_select").hide();
+                $("#table_select_update").hide();
+                $("#table_select_delete").hide()
+
                 stateChange1($(this).val());
             })
 
+            function stateChange3(stateValue){
+                $("form").hide();
+
+                switch(stateValue){
+                    case 'teams':
+                        $("#teams_delete_form").show();
+                        break;
+                    
+                    case 'players':
+                        $("#players_delete_form").show();
+                        break;
+                    
+                    case 'stadiums':
+                        $("#stadiums_delete_form").show();
+                        break;
+                    
+                    case 'broadcast_networks':
+                        $("#broadcast_networks_delete_form").show();
+                        break;
+                    
+                    case 'games':
+                        $("#games_delete_form").show();
+                        break;
+                    
+                }
+            }
+
+            function stateChange2(stateValue){
+                $("form").hide();
+
+                switch(stateValue){
+                    case 'teams':
+                        $("#teams_update_form").show();
+                        break;
+                    
+                    case 'players':
+                        $("#players_update_form").show();
+                        break;
+                    
+                    case 'stadiums':
+                        $("#stadiums_update_form").show();
+                        break;
+                    
+                    case 'broadcast_networks':
+                        $("#broadcast_networks_update_form").show();
+                        break;
+                    
+                    case 'games':
+                        $("#games_update_form").show();
+                        break;
+                    
+                }
+            }
+
             function stateChange1(stateValue){
+                $("form").hide();
+
                 switch(stateValue){
                     case 'insert_into':
                         $("#table_select").show();
+                        break;
                     
                     case 'update_table':
-                        $("#table_select").show();
+                        $("#table_select_update").show();
+                        break;
                     
                     case 'delete_from':
-                        $("#table_select").show();
+                        $("#table_select_delete").show();
+                        break;
                 }
             }
 
