@@ -30,4 +30,7 @@ urlpatterns = [
     path('alter_table/', views.AlterTable, name="alter"),
     path('thanks/', views.thanks, name="thanks"),
     path('', views.index, name="index"),
+    path('login/', views.loginPage, name="loginPage"),
+    path('register/', views.registerPage, name="registerPage"),
+    path('logout/', views.logoutUser, name="logoutPage"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

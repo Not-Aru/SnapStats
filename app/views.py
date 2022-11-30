@@ -5,9 +5,15 @@ from django.views.generic import ListView
 from django_tables2 import SingleTableView
 from django.http import HttpResponseRedirect
 from django.db import connection
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from app.models import *
 from app.tables import *
+from app.forms import CreateUserForm
 
 # Create your views here.
 
@@ -36,6 +42,7 @@ class BroadcastNetworksListView(SingleTableView):
     table_class = BroadcastNetworksTable
     template_name = 'app/broadcast_networks.html'
 
+@login_required(login_url='loginPage')
 def AlterTable(request):
     if request.method == 'POST':
         if request.POST.get('stadium_id') and request.POST.get('stadium_name') and request.POST.get('stadium_capacity'):
@@ -156,8 +163,53 @@ def AlterTable(request):
         print(request)
         return render(request, 'app/alter_table.html')
 
+@login_required(login_url='loginPage')
 def index(request):
     return render(request, 'app/index.html')
 
+@login_required(login_url='loginPage')
 def thanks(request):
     return render(request, 'app/thanks.html')
+
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('index')
+            else:
+                messages.info(request, 'Username or password is incorrect.')
+    
+    context = {}
+    return render(request, 'app/login.html', context)
+
+def registerPage(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        form = CreateUserForm()
+        
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, 'Account was created for ' + user)
+
+                return redirect('loginPage')
+            else:
+                messages.error(request, 'There was an error creating your account. Make sure that your password is not similar to the username and that it is at least 8 characters long.')
+    
+    context = {'form':form}
+    return render(request, 'app/register.html', context)
+
+def logoutUser(request):
+    logout(request)
+    return redirect('loginPage')
