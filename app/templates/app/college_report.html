@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>College Report</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5742/5742395.png" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">SnapStats</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/#tables">Return to Tables</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/alter_table">Alter a Table</a></li>
+    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">View College Reports Here</h2>
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-plus"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+    
+        <!-- About Section-->
+        
+        <!-- Contact Section-->
+        <section class="page-section" id="alter_table_section">
+            <div class="container">
+                <!-- Contact Section Heading-->
+
+                <!-- Contact Section Form-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+
+                        <p><center>Select the college you want to see, along with the respective stats for each player.</center></p>
+                    
+                        <br>
+
+                        
+                        
+                        <form id="teams_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+
+                                <select class="form-select" id="college_select" name="college_select" required>
+                                    <option value="">Select a college...</option>
+                                    <option value="Purdue">Purdue</option>
+                                    <option value="Kentucky">Kentucky</option>
+                                    <option value="Fresno State">Fresno State</option>
+                                    <option value="Georgia Tech">Georgia Tech</option>
+                                    <option value="Auburn">Auburn</option>
+                                    <option value="Tulsa">Tulsa</option>
+                                    <option value="UCLA">UCLA</option>
+                                    <option value="South Carolina">South Carolina</option>
+                                    <option value="Oregon">Oregon</option>
+                                    <option value="Navy">Navy</option>
+                                </select>
+                                <br>
+                                <p><center>Select the stats you want displayed for each player (defaults to player name, team, and college): </center></p> <br>
+
+                                <input type="checkbox" id="player_id" name="player_id" value="player_id">
+                                <label for="player_id"> Player ID</label><br>
+
+                                <input type="checkbox" id="position" name="position" value="position">
+                                <label for="position"> Position</label><br>
+
+                                <input type="checkbox" id="age" name="age" value="player_age">
+                                <label for="age"> Age</label><br>
+
+                                <input type="checkbox" id="years_on_team" name="years_on_team" value="years_on_team">
+                                <label for="years_on_team"> Years on Team</label><br>
+
+                                <input type="checkbox" id="games_started" name="games_started" value="games_started">
+                                <label for="games_started"> Games Started</label><br>
+                                
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+                            <br>
+                            <br>
+                        </form>
+                        <br>
+
+                        <style>
+                            h2 {
+                                color:cadetblue;
+                                text-align: center;
+                            }
+                            .center {
+                                border: 5px solid;
+                                text-align: center;
+                            }
+                        </style>
+                        <h2>Generated Report:</h2>
+                        <div class="center">
+                            <br>
+                            <p><b>{{ desc }}</b></p>
+                        </div>
+                
+
+                        <div class="center" id="myDiv">
+                            <br>
+                            {% for obj in query %}
+                                <p>{{obj}}</p>
+                            {% endfor %}
+                        <div>
+                    
+        
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright &copy; CS 348 SnapStats</small></div>
+        </div>
+        <!-- Portfolio Modals-->
+       
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>

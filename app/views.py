@@ -164,8 +164,58 @@ def AlterTable(request):
         return render(request, 'app/alter_table.html')
 
 @login_required(login_url='loginPage')
+def CollegeReport(request):
+    if request.method == 'POST':
+        cursor = connection.cursor()
+
+        player_id_string = ''
+        player_position_string = ''
+        player_age_string = ''
+        player_yot_string = ''
+        player_gs_string = ''
+        players_team_string = ''
+        players_where_team_clause = ''
+        player_college_string = ''
+
+        try:
+            if request.POST.get('player_id'):
+                player_id_string = ', p.' + request.POST.get('player_id')
+            if (request.POST.get('position')):
+                player_position_string = ', p.' + request.POST.get('position')
+            if (request.POST.get('age')):
+                player_age_string = ', p.' + request.POST.get('age')
+            if (request.POST.get('years_on_team')):
+                player_yot_string = ', p.' + request.POST.get('years_on_team')
+            if (request.POST.get('games_started')):
+                player_gs_string = ', p.' + request.POST.get('games_started')
+            if (request.POST.get('college_select')):
+                player_college_string = '\'' + request.POST.get('college_select') + '\''
+
+            sql_query = "SELECT p.player_name, t.team_name" + player_id_string + player_position_string + player_age_string + player_yot_string + player_gs_string + " , p.college FROM app_players p, app_teams t WHERE p.college = " + player_college_string + ' AND p.team_id_id = t.team_id'
+            print(sql_query)
+
+            cursor.execute(sql_query)
+            query = cursor.fetchall()
+            cursor_desc = cursor.description
+            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+            
+            return render(request, 'app/college_report.html', {'query': query, 'desc': desc_string})
+        finally:
+            cursor.close()
+    else: 
+        return render(request, 'app/college_report.html')
+
+@login_required(login_url='loginPage')
 def index(request):
     return render(request, 'app/index.html')
+
+@login_required(login_url='loginPage')
+def reports(request):
+    return render(request, 'app/reports.html')
+
+@login_required(login_url='loginPage')
+def collegeReport(request):
+    return render(request, 'app/college_report.html')
 
 @login_required(login_url='loginPage')
 def thanks(request):
