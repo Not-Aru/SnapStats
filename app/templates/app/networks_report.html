@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Reports</title>
+        <title>Networks Report</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1055/1055644.png" />
+        <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5742/5742395.png" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -32,14 +32,13 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/#tables">Return to Tables</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/alter_table">Alter a Table</a></li>
-    
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
-            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">View Reports Here</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Network Reports</h2>
             <div class="divider-custom">
                 <div class="divider-custom-line"></div>
                 <div class="divider-custom-icon"><i class="fas fa-plus"></i></div>
@@ -47,9 +46,9 @@
             </div>
         </header>
         <!-- Portfolio Section-->
-    
+
         <!-- About Section-->
-        
+
         <!-- Contact Section-->
         <section class="page-section" id="alter_table_section">
             <div class="container">
@@ -59,58 +58,85 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-8 col-xl-7">
 
-                        <p><center>View all reports below!</center></p>
-                        <p><center>Additionally, view all of our <a href="http://127.0.0.1:8000/#tables">tables</a> that our reports curate from.</center></p>
+                        <p><center>Select the network you would like to use:</center></p>
 
                         <br>
-                        <div class="text-center mt-4">
-                            <a class="btn-xl" href="http://127.0.0.1:8000/college_report">
-                                <i class="fas fa-download me-2"></i>
-                                College reports
-                            </a>
-                        </div>
+
+
+
+                        <form id="teams_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+
+                                <select class="form-select" id="network_select" name="network_select" required>
+                                    <option value="">Select a network...</option>
+                                    <option value="cbs">CBS</option>
+                                    <option value="fox">FOX</option>
+                                    <option value="nbc">NBC</option>
+                                    <option value="espn">ESPN</option>
+                                </select>
+                                <br>
+                                <p><center>Select the stats that you would like to display for the network: </center></p> <br>
+
+                                <input type="checkbox" id="number_of_games" name="number_of_games" value="player_id">
+                                <label for="number_of_games"> # of games broadcasted </label><br>
+
+                                <input type="checkbox" id="number_of_stadiums" name="number_of_stadiums" value="player_id">
+                                <label for="number_of_stadiums"> # of stadiums broadcasted at </label><br>
+
+                                <input type="checkbox" id="number_of_points" name="number_of_points" value="player_id">
+                                <label for="number_of_points"> # of points broadcasted </label><br>
+
+
+                                <br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Submit!" />
+                            <br>
+                            <br>
+                        </form>
                         <br>
 
-                        <div class="text-center mt-4">
-                            <a class="btn-xl" href="http://127.0.0.1:8000/networks_report">
-                                <i class="fas fa-download me-2"></i>
-                                Networks Report
-                            </a>
+                        <style>
+                            h2 {
+                                color:cadetblue;
+                                text-align: center;
+                            }
+                            .center {
+                                border: 5px solid;
+                                text-align: center;
+                            }
+                        </style>
+                        <h2>Generated Report:</h2>
+                        <div class="center">
+                            <br>
+                            <p><b>{{ desc }}</b></p>
                         </div>
-                        <br>
 
-                        <div class="text-center mt-4">
-                            <a class="btn-xl" href="http://127.0.0.1:8000/experience_report">
-                                <i class="fas fa-download me-2"></i>
-                                Experience Report
-                            </a>
-                        </div>
-                        <br>
 
-                        <div class="text-center mt-4">
-                            <a class="btn-xl" href="#">
-                                <i class="fas fa-download me-2"></i>
-                                TBD
-                            </a>
-                        </div>
+                        <div class="center" id="myDiv">
+                            <br>
+                            {% for obj in query %}
+                                <p>{{obj}}</p>
+                            {% endfor %}
+                        <div>
+
 
                     </div>
                 </div>
-                
+
             </div>
         </section>
-        
+
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
             <div class="container"><small>Copyright &copy; CS 348 SnapStats</small></div>
         </div>
         <!-- Portfolio Modals-->
-       
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'js/scripts.js' %}"></script>
-
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

@@ -206,6 +206,34 @@ def CollegeReport(request):
         return render(request, 'app/college_report.html')
 
 @login_required(login_url='loginPage')
+def ExperienceReport(request):
+    if request.method == 'POST':
+        cursor = connection.cursor()
+
+        operator_string = ''
+
+
+        try:
+            if request.POST.get('operator_select'):
+                operator_string = request.POST.get('operator_select')
+
+            sql_query1 = 'Select winner, count(winner) from (Select * , case when home_team_points > away_team_points then "Home Team" when home_team_points < away_team_points then "Away Winner" else "Tie" end as winner from app_games) t1 Join (Select team_id, avg_age+avg_years_on_team+avg_games_started as home_sum from (Select team_id, avg(player_age) as avg_age, avg(years_on_team) as avg_years_on_team, avg(games_started) as avg_games_started from app_players group by team_id) t1a join (Select * from app_teams) t1b On t1b.teamid = t1a.team_id) t2 On t2.team_id = t1.home_team_id join (Select team_id, avg_age+avg_years_on_team+avg_games_started as away_sum from (Select app_players.team_id, avg(player_age) as avg_age, avg(years_on_team) as avg_years_on_team, avg(games_started) as avg_games_started from app_players group by app_players.team_id) t2a join (Select * from app_teams) t2b On t2b.teamid = t2a.team_id) t3 On t3.team_id = t1.away_team_id where home_sum '
+            sql_query2 = operator_string + ' away_sum group by winner;'
+            sql_query3 = sql_query1 + sql_query2;
+            print(sql_query3)
+
+            cursor.execute(sql_query3)
+            query = cursor.fetchall()
+            cursor_desc = cursor.description
+            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+
+            return render(request, 'app/experience_report.html', {'query': query, 'desc': desc_string})
+        finally:
+            cursor.close()
+    else:
+        return render(request, 'app/experience_report.html')
+
+@login_required(login_url='loginPage')
 def index(request):
     return render(request, 'app/index.html')
 
@@ -263,3 +291,50 @@ def registerPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('loginPage')
+
+
+@login_required(login_url='loginPage')
+def NetworksReport(request):
+    if request.method == 'POST':
+        cursor = connection.cursor()
+
+        network_string = ''
+        num_games_string = ''
+        num_stadiums_string = ''
+        num_points_string = ''
+
+        try:
+            if (request.POST.get('network_select')):
+                network_string = '\'' + request.POST.get('network_select') + '\''
+            if (request.POST.get('number_of_games')):
+                num_games_string = ", COUNT(*) AS num_games_broadcasted"
+            if (request.POST.get('number_of_stadiums')):
+                num_stadiums_string = ', COUNT(DISTINCT t.stadium_id_id) AS num_stadiums'
+            if (request.POST.get('number_of_points')):
+                num_points_string = ', SUM(g.home_team_points + g.away_team_points) AS num_points'
+
+            print("network_string: " + network_string);
+
+            sql_query = "SELECT DISTINCT n.broadcast_company" \
+                        + num_games_string \
+                        + num_stadiums_string \
+                        + num_points_string \
+                        + " FROM app_broadcast_networks n" \
+                        + " JOIN app_games g JOIN app_teams t JOIN app_stadium s ON n.game_id_id = g.game_id AND g.home_team_id_id = t.team_id AND t.stadium_id_id = s.stadium_id" \
+                        + " WHERE n.broadcast_company = " + network_string
+
+            print(sql_query)
+
+            cursor.execute(sql_query)
+            query = cursor.fetchall()
+            cursor_desc = cursor.description
+            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+
+            return render(request, 'app/networks_report.html', {'query': query, 'desc': desc_string})
+        finally:
+            cursor.close()
+    else:
+        return render(request, 'app/networks_report.html')
+
+
+
