@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>College Report</title>
+    <title>Stadium Report</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5742/5742395.png"/>
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/1259/1259792.png"/>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -37,6 +37,8 @@
                                                      href="http://127.0.0.1:8000/#tables">Return to Tables</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                                      href="http://127.0.0.1:8000/alter_table">Alter a Table</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="http://127.0.0.1:8000/reports">Reports</a></li>
+
 
             </ul>
         </div>
@@ -85,20 +87,24 @@
                             <option value=">80000">More than 80000</option>
                         </select>
                         <br>
+
                         <p>
                         <center>Select the order of the result displayed
                         </center>
-                        </p> <br>
+                        </p> 
+                        <br>
 
 
                         <label>
                             <input type="radio" name="order" value=" Order by s.capacity ASC">Rank By Capacity Ascending
                             Order
                         </label>
+                        <br>
                         <label>
                             <input type="radio" name="order" value=" Order by s.capacity DESC">Rank By Capacity
                             Descending Order
                         </label>
+                        <br>
                         <label>
                             <input type="radio" name="order" value=" Order by s.stadium_name ASC ">Rank by name
                             Alphabetically
@@ -110,17 +116,17 @@
                         </label>
                         </br>
 
+                        <br>
                         <label for="only show Top X quantity">only show Top X stadiums:</label>
                         <input type="number" id="quantity" name="quantity" min="1" max="100">
                         <br>
 
-
-                        <br>
                         <p>
                         <center>click to only show the total number of stadiums in that range, ranking and limits wont
                             apply
                         </center>
                         </p>
+                        <br>
                         <label>
                             <input type="checkbox" name="count" value=" count">show number of stadiums instead
                         </label>
@@ -129,6 +135,7 @@
 
 
                     </div>
+                    <br>
                     <input type="submit" class="btn btn-primary" value="Submit!"/>
                     <br>
                     <br>
