@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from app.models import *
 from app.tables import *
 from app.forms import CreateUserForm
+from django.db import transaction
 
 # Create your views here.
 
@@ -22,25 +23,30 @@ class TeamsListView(SingleTableView):
     table_class = TeamsTable
     template_name = 'app/teams.html'
 
+
 class StadiumsListView(SingleTableView):
     model = Stadium
     table_class = StadiumsTable
     template_name = 'app/stadium.html'
+
 
 class PlayersListView(SingleTableView):
     model = Players
     table_class = PlayersTable
     template_name = 'app/players.html'
 
+
 class GamesListView(SingleTableView):
     model = Games
     table_class = GamesTable
     template_name = 'app/games.html'
 
+
 class BroadcastNetworksListView(SingleTableView):
     model = Broadcast_Networks
     table_class = BroadcastNetworksTable
     template_name = 'app/broadcast_networks.html'
+
 
 @login_required(login_url='loginPage')
 def AlterTable(request):
@@ -53,21 +59,25 @@ def AlterTable(request):
             stadium.save()
 
             return render(request, 'app/thanks.html')
-        if request.POST.get('team_id') and request.POST.get('stadium_id') and request.POST.get('team_name') and request.POST.get('division'):
+        if request.POST.get('team_id') and request.POST.get('stadium_id') and request.POST.get(
+                'team_name') and request.POST.get('division'):
             teams = Teams()
             teams.team_id = request.POST.get('team_id')
-            teams.stadium_id =  Stadium.objects.get(pk = request.POST.get('stadium_id'))
+            teams.stadium_id = Stadium.objects.get(pk=request.POST.get('stadium_id'))
             teams.team_name = request.POST.get('team_name')
             teams.division = request.POST.get('division')
             teams.save()
 
             return render(request, 'app/thanks.html')
-        if request.POST.get('player_id') and request.POST.get('player_name') and request.POST.get('position') and request.POST.get('player_team_id') and request.POST.get('player_age') and request.POST.get('player_years_on_team') and request.POST.get('player_games_started') and request.POST.get('player_college'):
+        if request.POST.get('player_id') and request.POST.get('player_name') and request.POST.get(
+                'position') and request.POST.get('player_team_id') and request.POST.get(
+                'player_age') and request.POST.get('player_years_on_team') and request.POST.get(
+                'player_games_started') and request.POST.get('player_college'):
             player = Players()
             player.player_id = request.POST.get('player_id')
             player.player_name = request.POST.get('player_name')
             player.position = request.POST.get('position')
-            player.team_id = Teams.objects.get(pk = request.POST.get('player_team_id')) 
+            player.team_id = Teams.objects.get(pk=request.POST.get('player_team_id'))
             player.player_age = request.POST.get('player_age')
             player.years_on_team = request.POST.get('player_years_on_team')
             player.games_started = request.POST.get('player_games_started')
@@ -78,15 +88,17 @@ def AlterTable(request):
         if request.POST.get('bn_company') and request.POST.get('bn_game_id'):
             bn = Broadcast_Networks()
             bn.broadcast_company = request.POST.get('bn_company')
-            bn.game_id = Games.objects.get(pk=request.POST.get('bn_game_id')) 
+            bn.game_id = Games.objects.get(pk=request.POST.get('bn_game_id'))
             bn.save()
 
             return render(request, 'app/thanks.html')
-        if request.POST.get('games_game_id') and request.POST.get('games_home_team_id') and request.POST.get('games_away_team_id') and request.POST.get('games_home_team_points') and request.POST.get('games_away_team_points'):
+        if request.POST.get('games_game_id') and request.POST.get('games_home_team_id') and request.POST.get(
+                'games_away_team_id') and request.POST.get('games_home_team_points') and request.POST.get(
+                'games_away_team_points'):
             games = Games()
             games.game_id = request.POST.get('games_game_id')
-            games.home_team_id = Teams.objects.get(pk = request.POST.get('games_home_team_id')) 
-            games.away_team_id.capacity = Teams.objects.get(pk = request.POST.get('games_away_team_id')) 
+            games.home_team_id = Teams.objects.get(pk=request.POST.get('games_home_team_id'))
+            games.away_team_id.capacity = Teams.objects.get(pk=request.POST.get('games_away_team_id'))
             games.home_team_points = request.POST.get('games_home_team_points')
             games.away_team_points = request.POST.get('games_away_team_points')
             games.save()
@@ -96,31 +108,36 @@ def AlterTable(request):
         # -----------------------------------------------------------------------------------------------------------------------------------------------
 
         if request.POST.get('stadium_update_set') and request.POST.get('stadium_update_where'):
-            sql_query = "UPDATE app_stadium SET " + request.POST.get('stadium_update_set') + " WHERE " + request.POST.get('stadium_update_where')
+            sql_query = "UPDATE app_stadium SET " + request.POST.get(
+                'stadium_update_set') + " WHERE " + request.POST.get('stadium_update_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
             return render(request, 'app/thanks.html')
         if request.POST.get('team_update_set') and request.POST.get('team_update_where'):
-            sql_query = "UPDATE app_teams SET " + request.POST.get('team_update_set') + " WHERE " + request.POST.get('team_update_where')
+            sql_query = "UPDATE app_teams SET " + request.POST.get('team_update_set') + " WHERE " + request.POST.get(
+                'team_update_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
             return render(request, 'app/thanks.html')
         if request.POST.get('players_update_set') and request.POST.get('players_update_where'):
-            sql_query = "UPDATE app_players SET " + request.POST.get('players_update_set') + " WHERE " + request.POST.get('players_update_where')
+            sql_query = "UPDATE app_players SET " + request.POST.get(
+                'players_update_set') + " WHERE " + request.POST.get('players_update_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
             return render(request, 'app/thanks.html')
         if request.POST.get('games_update_set') and request.POST.get('games_update_where'):
-            sql_query = "UPDATE app_games SET " + request.POST.get('games_update_set') + " WHERE " + request.POST.get('games_update_where')
+            sql_query = "UPDATE app_games SET " + request.POST.get('games_update_set') + " WHERE " + request.POST.get(
+                'games_update_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
             return render(request, 'app/thanks.html')
         if request.POST.get('broadcast_networks_update_set') and request.POST.get('broadcast_networks_update_where'):
-            sql_query = "UPDATE app_broadcast_networks SET " + request.POST.get('broadcast_networks_update_set') + " WHERE " + request.POST.get('broadcast_networks_update_where')
+            sql_query = "UPDATE app_broadcast_networks SET " + request.POST.get(
+                'broadcast_networks_update_set') + " WHERE " + request.POST.get('broadcast_networks_update_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
@@ -153,7 +170,8 @@ def AlterTable(request):
 
             return render(request, 'app/thanks.html')
         if request.POST.get('broadcast_networks_delete_where'):
-            sql_query = "DELETE FROM app_broadcast_networks WHERE " + request.POST.get('broadcast_networks_delete_where')
+            sql_query = "DELETE FROM app_broadcast_networks WHERE " + request.POST.get(
+                'broadcast_networks_delete_where')
             cursor = connection.cursor()
             cursor.execute(sql_query)
 
@@ -162,6 +180,7 @@ def AlterTable(request):
     else:
         print(request)
         return render(request, 'app/alter_table.html')
+
 
 @login_required(login_url='loginPage')
 def CollegeReport(request):
@@ -193,17 +212,19 @@ def CollegeReport(request):
 
             sql_query = "SELECT p.player_name, t.team_name" + player_id_string + player_position_string + player_age_string + player_yot_string + player_gs_string + " , p.college FROM app_players p, app_teams t WHERE p.college = " + player_college_string + ' AND p.team_id_id = t.team_id'
             print(sql_query)
+            with transaction.atomic():
+                cursor.execute('SET TRANSACTION ISOLATION LEVEL read committed')
+                cursor.execute(sql_query)
+                query = cursor.fetchall()
+                cursor_desc = cursor.description
+                desc_string = ' | '.join(desc[0] for desc in cursor_desc)
 
-            cursor.execute(sql_query)
-            query = cursor.fetchall()
-            cursor_desc = cursor.description
-            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
-            
             return render(request, 'app/college_report.html', {'query': query, 'desc': desc_string})
         finally:
             cursor.close()
-    else: 
+    else:
         return render(request, 'app/college_report.html')
+
 
 @login_required(login_url='loginPage')
 def ExperienceReport(request):
@@ -211,7 +232,6 @@ def ExperienceReport(request):
         cursor = connection.cursor()
 
         operator_string = ''
-
 
         try:
             if request.POST.get('operator_select'):
@@ -221,11 +241,12 @@ def ExperienceReport(request):
             sql_query2 = operator_string + ' away_sum group by winner;'
             sql_query3 = sql_query1 + sql_query2;
             print(sql_query3)
-
-            cursor.execute(sql_query3)
-            query = cursor.fetchall()
-            cursor_desc = cursor.description
-            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+            with transaction.atomic():
+                cursor.execute('SET TRANSACTION ISOLATION LEVEL read committed')
+                cursor.execute(sql_query3)
+                query = cursor.fetchall()
+                cursor_desc = cursor.description
+                desc_string = ' | '.join(desc[0] for desc in cursor_desc)
 
             return render(request, 'app/experience_report.html', {'query': query, 'desc': desc_string})
         finally:
@@ -233,21 +254,71 @@ def ExperienceReport(request):
     else:
         return render(request, 'app/experience_report.html')
 
+
+@login_required(login_url='loginPage')
+def StadiumReport(request):
+    if request.method == 'POST':
+        cursor = connection.cursor()
+
+        order_string = ''
+        quantity_string = ''
+        stadium_college_string = ''
+        select_string = '*'
+
+        try:
+            # Get the values for the query parameters from the request
+            if (request.POST.get('quantity')):
+                quantity_string = ' limit ' + request.POST.get('quantity')
+            if (request.POST.get('order')):
+                order_string = request.POST.get('order')
+            if (request.POST.get('stadium_select')):
+                stadium_college_string = request.POST.get('stadium_select')
+            if (request.POST.get('count')):
+                select_string = ('count(*) as number_of_stadiums')
+
+            # Use a with statement and the transaction.atomic decorator to ensure that
+            # the database operations within the with block are executed as a single transaction
+            with transaction.atomic():
+                cursor.execute('SET TRANSACTION ISOLATION LEVEL read committed')
+
+
+
+                sql_query = "select "+ select_string +" from app_stadium s where s.capacity " + stadium_college_string + order_string + quantity_string + ''
+
+                print(sql_query)
+
+                cursor.execute(sql_query)
+                query = cursor.fetchall()
+                cursor_desc = cursor.description
+                desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+
+            # Return the result of the query
+            return render(request, 'app/stadium_report.html', {'query': query, 'desc': desc_string})
+        finally:
+            cursor.close()
+    else:
+        return render(request, 'app/stadium_report.html')
+
+
 @login_required(login_url='loginPage')
 def index(request):
     return render(request, 'app/index.html')
+
 
 @login_required(login_url='loginPage')
 def reports(request):
     return render(request, 'app/reports.html')
 
+
 @login_required(login_url='loginPage')
 def collegeReport(request):
     return render(request, 'app/college_report.html')
 
+
 @login_required(login_url='loginPage')
 def thanks(request):
     return render(request, 'app/thanks.html')
+
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -264,16 +335,17 @@ def loginPage(request):
                 return redirect('index')
             else:
                 messages.info(request, 'Username or password is incorrect.')
-    
+
     context = {}
     return render(request, 'app/login.html', context)
+
 
 def registerPage(request):
     if request.user.is_authenticated:
         return redirect('index')
     else:
         form = CreateUserForm()
-        
+
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
             if form.is_valid():
@@ -283,10 +355,12 @@ def registerPage(request):
 
                 return redirect('loginPage')
             else:
-                messages.error(request, 'There was an error creating your account. Make sure that your password is not similar to the username and that it is at least 8 characters long.')
-    
-    context = {'form':form}
+                messages.error(request,
+                               'There was an error creating your account. Make sure that your password is not similar to the username and that it is at least 8 characters long.')
+
+    context = {'form': form}
     return render(request, 'app/register.html', context)
+
 
 def logoutUser(request):
     logout(request)
@@ -324,17 +398,15 @@ def NetworksReport(request):
                         + " WHERE n.broadcast_company = " + network_string
 
             print(sql_query)
-
-            cursor.execute(sql_query)
-            query = cursor.fetchall()
-            cursor_desc = cursor.description
-            desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+            with transaction.atomic():
+                cursor.execute('SET TRANSACTION ISOLATION LEVEL read committed')
+                cursor.execute(sql_query)
+                query = cursor.fetchall()
+                cursor_desc = cursor.description
+                desc_string = ' | '.join(desc[0] for desc in cursor_desc)
 
             return render(request, 'app/networks_report.html', {'query': query, 'desc': desc_string})
         finally:
             cursor.close()
     else:
         return render(request, 'app/networks_report.html')
-
-
-

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>College Report</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/5742/5742395.png"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+</head>
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="http://127.0.0.1:8000/">SnapStats</a>
+        <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                     href="http://127.0.0.1:8000/#tables">Return to Tables</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                                     href="http://127.0.0.1:8000/alter_table">Alter a Table</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">View Stadium Reports Here</h2>
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-plus"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+</header>
+<!-- Portfolio Section-->
+
+<!-- About Section-->
+
+<!-- Contact Section-->
+<section class="page-section" id="alter_table_section">
+    <div class="container">
+        <!-- Contact Section Heading-->
+
+        <!-- Contact Section Form-->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+
+                <p>
+                <center>Select the range of capacity for stadium</center>
+                </p>
+
+                <br>
+
+
+                <form id="stadiums_form" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+
+                        <select class="form-select" id="stadium_select" name="stadium_select" required>
+                            <option value="">Select a range...</option>
+                            <option value="">Show ALL</option>
+                            <option value="< 65000">Less than 65000</option>
+                            <option value=">= 65000 and s.capacity <=70000">65000 <= x <= 70000</option>
+                            <option value=">= 70000 and s.capacity <=75000">70000 <= x <= 75000</option>
+                            <option value=">= 75000 and s.capacity <=80000">75000 <= x <= 80000</option>
+                            <option value=">80000">More than 80000</option>
+                        </select>
+                        <br>
+                        <p>
+                        <center>Select the order of the result displayed
+                        </center>
+                        </p> <br>
+
+
+                        <label>
+                            <input type="radio" name="order" value=" Order by s.capacity ASC">Rank By Capacity Ascending
+                            Order
+                        </label>
+                        <label>
+                            <input type="radio" name="order" value=" Order by s.capacity DESC">Rank By Capacity
+                            Descending Order
+                        </label>
+                        <label>
+                            <input type="radio" name="order" value=" Order by s.stadium_name ASC ">Rank by name
+                            Alphabetically
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="order" value=" Order by s.stadium_id ASC ">Rank by stadium
+                            id
+                        </label>
+                        </br>
+
+                        <label for="only show Top X quantity">only show Top X stadiums:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="100">
+                        <br>
+
+
+                        <br>
+                        <p>
+                        <center>click to only show the total number of stadiums in that range, ranking and limits wont
+                            apply
+                        </center>
+                        </p>
+                        <label>
+                            <input type="checkbox" name="count" value=" count">show number of stadiums instead
+                        </label>
+
+                        <br>
+
+
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit!"/>
+                    <br>
+                    <br>
+                </form>
+                <br>
+
+                <style>
+                    h2 {
+                        color: cadetblue;
+                        text-align: center;
+                    }
+
+                    .center {
+                        border: 5px solid;
+                        text-align: center;
+                    }
+                </style>
+                <h2>Generated Report:</h2>
+                <div class="center">
+                    <br>
+                    <p><b>{{ desc }}</b></p>
+                </div>
+
+
+                <div class="center" id="myDiv">
+                    <br>
+                    {% for obj in query %}
+                        <p>{{ obj }}</p>
+                    {% endfor %}
+                    <div>
+
+
+                    </div>
+                </div>
+
+            </div>
+</section>
+
+<!-- Copyright Section-->
+<div class="copyright py-4 text-center text-white">
+    <div class="container"><small>Copyright &copy; CS 348 SnapStats</small></div>
+</div>
+<!-- Portfolio Modals-->
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'js/scripts.js' %}"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

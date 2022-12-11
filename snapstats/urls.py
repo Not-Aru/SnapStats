@@ -35,6 +35,7 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="logoutPage"),
     path('reports', views.reports, name="reports"),
     path('college_report', views.CollegeReport, name="college_report"),
+    path('stadium_report', views.StadiumReport, name="stadium_report"),
     path('networks_report', views.NetworksReport, name="networks_report"),
     path('experience_report', views.ExperienceReport, name="experience_report"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
