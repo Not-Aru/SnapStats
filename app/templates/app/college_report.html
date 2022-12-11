@@ -114,25 +114,31 @@
                                 text-align: center;
                             }
                             .center {
-                                border: 5px solid;
+                                border: 3px solid;
                                 text-align: center;
+                                margin-left: auto;
+                                margin-right: auto;
                             }
                         </style>
                         <h2>Generated Report:</h2>
-                        <div class="center">
-                            <br>
-                            <p><b>{{ desc }}</b></p>
-                        </div>
-                
 
-                        <div class="center" id="myDiv">
-                            <br>
-                            {% for obj in query %}
-                                <p>{{obj}}</p>
-                            {% endfor %}
-                        <div>
-                    
-        
+                        <div class="center" style="display:table">
+                            <table  class="table" style="width: 100%">
+                                <tr>
+                                    {% for column in description %}
+                                    <th>{{ column }}</th>
+                                    {% endfor %}
+                                </tr>
+                                {% for row in query %}
+                                <tr>
+                                    {% for value in row %}
+                                    <td>{{ value }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+
                     </div>
                 </div>
                 

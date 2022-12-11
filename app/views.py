@@ -218,8 +218,9 @@ def CollegeReport(request):
                 query = cursor.fetchall()
                 cursor_desc = cursor.description
                 desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+                field_names = [i[0] for i in cursor.description]
 
-            return render(request, 'app/college_report.html', {'query': query, 'desc': desc_string})
+            return render(request, 'app/college_report.html', {'query': query, 'desc': desc_string, 'description':field_names})
         finally:
             cursor.close()
     else:
@@ -247,8 +248,9 @@ def ExperienceReport(request):
                 query = cursor.fetchall()
                 cursor_desc = cursor.description
                 desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+                field_names = [i[0] for i in cursor.description]
 
-            return render(request, 'app/experience_report.html', {'query': query, 'desc': desc_string})
+            return render(request, 'app/experience_report.html', {'query': query, 'desc': desc_string, 'description':field_names})
         finally:
             cursor.close()
     else:
@@ -291,9 +293,10 @@ def StadiumReport(request):
                 query = cursor.fetchall()
                 cursor_desc = cursor.description
                 desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+                field_names = [i[0] for i in cursor.description]
 
             # Return the result of the query
-            return render(request, 'app/stadium_report.html', {'query': query, 'desc': desc_string})
+            return render(request, 'app/stadium_report.html', {'query': query, 'desc': desc_string, 'description':field_names})
         finally:
             cursor.close()
     else:
@@ -404,8 +407,9 @@ def NetworksReport(request):
                 query = cursor.fetchall()
                 cursor_desc = cursor.description
                 desc_string = ' | '.join(desc[0] for desc in cursor_desc)
+                field_names = [i[0] for i in cursor.description]
 
-            return render(request, 'app/networks_report.html', {'query': query, 'desc': desc_string})
+            return render(request, 'app/networks_report.html', {'query': query, 'desc': desc_string, 'description':field_names})
         finally:
             cursor.close()
     else:
